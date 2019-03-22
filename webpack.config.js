@@ -2,6 +2,7 @@ const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
 
@@ -64,6 +65,7 @@ module.exports = {
   plugins: [
     new UglifyJsPlugin({ sourceMap: true }),
     new CleanWebpackPlugin(['dist']),
+    new Dotenv(),
     new HtmlWebpackPlugin({
       title: 'Template',
       filename: 'index.html',
