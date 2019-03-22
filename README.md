@@ -1,5 +1,5 @@
 # Web Doc
-> _A program using API calls to query a medical database to recommend doctors based on symptoms_
+> _A program using API calls to query a medical database to recommend doctors based on symptoms, at any inputted city_
 
 #### By **Travis Toal**
 
@@ -10,7 +10,7 @@
 
 ### Description
 
-* _Web Doc uses the Better Doctor API to take a user's input, either a symptom or a doctor's name, and returns a list of doctors that fit that specialty or name._
+* _Web Doc uses the Better Doctor API to take a user's input, either a symptom or a doctor's name, and returns a list of doctors that fit that specialty or name. It also takes in a user's desired city and uses MapQuest's API to find the coordinates, to plug into the Better Doctor API._
 
 ## Planning
 
@@ -58,9 +58,15 @@
 
 ### Support and Contact Details
 
+_WARNING - mailto link:_
+
 [Email me for any questions](mailto:travisty12@gmail.com)
 
-[View my work](https://www.github.com/travisty12/)
+_Non-mailto information:_
+
+_Email: travisty12@gmail.com_
+
+[View my work on GitHub](https://www.github.com/travisty12/)
 
 #### License
 * _This software is licensed under the MIT license_
