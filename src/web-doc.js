@@ -15,13 +15,13 @@ export class DocCall {
     })
   }
   getPromise(destination, coords = `45.520247,-122.674195`) {
-    const apiKey = process.env.exports.apiKey;
-    const url = `https://api.betterdoctor.com/2016-03-01/${destination}?location=${coords},100&skip=0&limit=100&user_key=${apiKey}`;
-    return this.apiTemplate(apiKey, url);
+    const key = process.env.exports.apiKey;
+    const url = `https://api.betterdoctor.com/2016-03-01/${destination}?location=${coords},100&skip=0&limit=100&user_key=${key}`;
+    return this.apiTemplate(key, url);
   }
   getCoords(location) {
-    const mapKey = process.env.mapKey;
-    const url = `http://open.mapquestapi.com/geocoding/v1/address?key=${mapKey}&location=${location}`;
-    return this.apiTemplate(mapKey, url);
+    const key = process.env.mapKey;
+    const url = `http://open.mapquestapi.com/geocoding/v1/address?key=${key}&location=${location}`;
+    return this.apiTemplate(key, url);
   }
 }

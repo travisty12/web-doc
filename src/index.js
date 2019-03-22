@@ -36,6 +36,12 @@ function docMatch(doc) {
   return;
 }
 
+function checkNoMatch(searchSucceed, userIn) {
+  if (!searchSucceed) {
+    $("#output").append(`<p>No doctors matched your search for ${userIn}</p>`);
+  }
+}
+
 function searchCall(input, docCall) {
   const mapPromise = returnCoordinatePromise(docCall);
   mapPromise.then(getCoordinatesReturnDoctors(docCall), testFail())
@@ -53,9 +59,7 @@ function searchCall(input, docCall) {
         }
       }
     })
-    if (!searchSucceed) {
-      $("#output").append(`<p>No doctors matched your search for ${userIn}</p>`);
-    }
+    checkNoMatch(searchSucceed, userIn);
   }, testFail())
   return;
 }
@@ -72,15 +76,24 @@ function btnToggle(choice) {
   }, 400);
 }
 
-$(document).ready(function() {
-  const docCall = new DocCall();
-  const initialCall = docCall.getPromise(`specialties`)
-  initialCall.then(function(response) {
+function specialtyPopulate() {
+  return function(response) {
     const data = JSON.parse(response).data;
     for (let i = 0; i < data.length; i++) {
       $("#examples").append(`<option>${data[i].description}</option>`);
     }
-  }, testFail())
+  }
+}
+
+function initializePage() {
+  const docCall = new DocCall();
+  const initialCall = docCall.getPromise(`specialties`);
+  initialCall.then(specialtyPopulate(), testFail())
+  return docCall;
+}
+
+$(document).ready(function() {
+  const docCall = initializePage();
   $("#symptom").click(function() {
     btnToggle(0);
   });
