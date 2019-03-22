@@ -10,20 +10,20 @@
       </div>
       <div id="body">
         <div id="input">
-          <div id="choice">
-            <div id="symptom">
-              <p>Search By Symptom</p>
-            </div>
-            <div id="doc">
-              <p>Search By Doctor</p>
-            </div>
-          </div>
           <div id="formHolder">
+            <div id="choice">
+              <div id="symptom" class="active">
+                <p>Search By Symptom</p>
+              </div>
+              <div id="doctor">
+                <p>Search By Doctor</p>
+              </div>
+            </div>
             <label for="location">Enter a city to search in (follow example, e.g. 'Portland,OR')</label>
-            <input id="location" type="text" name="location" placeholder="City,ST">
+            <input id="location" type="text" name="location" placeholder="City,ST" required>
             <label id="symptomLabel" for="userIn">Enter in short symptoms or areas for best results, i.e. "sore throat", "heart", etc.</label>
             <label id="doctorLabel" for="userIn">Enter in the last name of the doctor you wish to find.</label>
-            <input id="userIn" type="text" name="userIn" placeholder="Enter your search here...">
+            <input id="userIn" type="text" name="userIn" placeholder="Enter your search here..." required>
             <button id="symptomBtn" type="button">Search</button>
             <button id="doctorBtn" type="button">Search</button>
           </div>

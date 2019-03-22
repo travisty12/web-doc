@@ -28,7 +28,7 @@ function searchCall(input) {
           const practice = doc.practices[0];
           const location = practice.visit_address;
           const newPatients = practice.accepts_new_patients ? "" : "not ";
-          const hasSite = practice.website ? ` or at their website, ${practice.website}` : ``;
+          const hasSite = practice.website ? ` or at <a href=' ${practice.website}'>their website</a>` : ``;
           $("#output").append(`<img src='${pic}'>`);
           $("#output").append(`<p>Dr. ${profile.first_name} ${profile.last_name}, located at ${location.street}, ${location.city} ${location.state} ${location.zip}</p>`);
           $("#output").append(`<p>Dr. ${profile.last_name} can be reached at ${practice.phones[0].number}${hasSite}</p>`);
@@ -50,6 +50,8 @@ function btnToggle(choice) {
   const options = [`doctor`,`symptom`];
   $(`#${options[choice]}Label`).fadeOut();
   $(`#${options[choice]}Btn`).fadeOut();
+  $(`#${options[choice]}`).removeClass('active');
+  $(`#${options[1-choice]}`).addClass('active');
   setTimeout(function() {
     $(`#${options[1-choice]}Btn`).fadeIn();
     $(`#${options[1-choice]}Label`).fadeIn();
@@ -60,7 +62,7 @@ $(document).ready(function() {
   $("#symptom").click(function() {
     btnToggle(0);
   });
-  $("#doc").click(function() {
+  $("#doctor").click(function() {
     btnToggle(1);
   });
   $("#symptomBtn").click(function() {
