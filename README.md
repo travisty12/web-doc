@@ -25,10 +25,10 @@
   * webpack, webpack-cli, webpack-dev-server: bundling dependencies
   * dotenv-webpack: makes api key available within files
 
-1. Configuration
+2. Configuration
   * Set up project as npm/webpack-bundled, behavior-driven, logic-separated directory
 
-1. Specs
+3. Specs
 
   | Spec | Input | Output |
 | :-------------     | :------------- | :------------- |
@@ -39,7 +39,7 @@
 | **Program returns a message if no doctors match your criteria** | Dr. Fancypants Scrufflestone | Your search did not match any results |
 | **Program allows the user to input their preferred city** | Phoenix,AZ | *Doctors in Phoenix* |
 
-1. UX/UI
+4. UX/UI
 * Include and modify html/Sass once specs are completed for .js files
 
 ## Technologies Used
