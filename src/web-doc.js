@@ -14,9 +14,9 @@ export class DocCall {
       request.send();
     })
   }
-  getPromise(coords) {
+  getPromise(destination, coords = `45.520247,-122.674195`) {
     const apiKey = process.env.exports.apiKey;
-    const url = `https://api.betterdoctor.com/2016-03-01/doctors?location=${coords},100&skip=0&limit=100&user_key=${apiKey}`;
+    const url = `https://api.betterdoctor.com/2016-03-01/${destination}?location=${coords},100&skip=0&limit=100&user_key=${apiKey}`;
     return this.apiTemplate(apiKey, url);
   }
   getCoords(location) {

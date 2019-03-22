@@ -10,8 +10,17 @@ body {
   background-color: rgba(64,64,128,0.3);
 }
 
+select {
+  width: 60%;
+}
+
 button, input, a {
   cursor: pointer;
+}
+
+a {
+  color: black;
+
 }
 
 #wrapper {
@@ -69,5 +78,5 @@ button, input, a {
 
 #foot {
   min-height: 100px;
-  
+
 }

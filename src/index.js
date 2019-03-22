@@ -2,15 +2,14 @@ import $ from 'jquery';
 import './sass/styles.scss';
 import { DocCall } from './web-doc.js';
 
-function searchCall(input) {
+function searchCall(input, docCall) {
   $("#input").fadeOut();
-  const docCall = new DocCall();
   const location = $("#location").val();
   const mapPromise = docCall.getCoords(location);
   mapPromise.then(function(response) {
     const coordsObj = JSON.parse(response).results[0].locations[0].displayLatLng;
     const coords = `${coordsObj.lat},${coordsObj.lng}`;
-    return docCall.getPromise(coords);
+    return docCall.getPromise(`doctors`, coords);
   }, function(error) {
     $("#output").text(`Request failed: ${error.message}`);
   })
@@ -59,6 +58,16 @@ function btnToggle(choice) {
 }
 
 $(document).ready(function() {
+  const docCall = new DocCall();
+  const initialCall = docCall.getPromise(`specialties`)
+  initialCall.then(function(response) {
+    const data = JSON.parse(response).data;
+    for (let i = 0; i < data.length; i++) {
+      $("#examples").append(`<option maxlength="64">${data[i].description}</option>`);
+    }
+  }, function(error) {
+    $("#output").text(`Request failed: ${error.message}`);
+  })
   $("#symptom").click(function() {
     btnToggle(0);
   });
@@ -66,9 +75,9 @@ $(document).ready(function() {
     btnToggle(1);
   });
   $("#symptomBtn").click(function() {
-  searchCall(0);
+  searchCall(0, docCall);
   });
   $("#doctorBtn").click(function() {
-    searchCall(1);
+    searchCall(1, docCall);
   });
 });
