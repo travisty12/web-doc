@@ -22,4 +22,22 @@ export class DocCall {
       request.send();
     })
   }
+  getCoords(location) {
+
+    var Promise = require('es6-promise').Promise;
+    return new Promise(function(resolve, reject) {
+      let request = new XMLHttpRequest();
+      const mapKey = process.env.mapKey;
+      let url = `http://open.mapquestapi.com/geocoding/v1/address?key=${mapKey}&location=${location}`;
+      request.onload = function() {
+        if (this.status === 200) {
+          resolve(request.response);
+        } else {
+          reject(Error(request.statusText));
+        }
+      }
+      request.open("GET", url, true);
+      request.send();
+    })
+  }
 }
