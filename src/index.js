@@ -1,4 +1,3 @@
 import $ from 'jquery';
 import './sass/styles.scss';
-
-// JavaScript goes here!
+import { DocCall } from './web-doc.js';
