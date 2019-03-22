@@ -1,11 +1,5 @@
 export class DocCall {
-  getPromise(city) {
-    let coords = "";
-    if (city == "portland") {
-      coords = "45.512,-122.659";
-    } else if (city == "seattle") {
-      coords = "47.606,-122.332";
-    }
+  getPromise(coords) {
     var Promise = require('es6-promise').Promise;
     return new Promise(function(resolve, reject) {
       let request = new XMLHttpRequest();

@@ -4,11 +4,18 @@ import { DocCall } from './web-doc.js';
 
 function searchCall(input) {
   $("#input").fadeOut();
-  let searchSucceed = false;
-  const city = $("#cityName").children("option:selected").val();
   const docCall = new DocCall();
-  const promise = docCall.getPromise(city);
-  promise.then(function(response) {
+  const location = $("#location").val();
+  const mapPromise = docCall.getCoords(location);
+  mapPromise.then(function(response) {
+    const coordsObj = JSON.parse(response).results[0].locations[0].displayLatLng;
+    const coords = `${coordsObj.lat},${coordsObj.lng}`;
+    return docCall.getPromise(coords);
+  }, function(error) {
+    $("#output").text(`Request failed: ${error.message}`);
+  })
+  .then(function(response) {
+    let searchSucceed = false;
     const data = JSON.parse(response).data;
     const userIn = $("#userIn").val();
     data.forEach(function(doc) {
