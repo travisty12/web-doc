@@ -8,15 +8,37 @@ function testFail() {
   }
 }
 
-function searchCall(input, docCall) {
+function returnCoordinatePromise(docCall) {
   $("#input").fadeOut();
   const location = $("#location").val();
-  const mapPromise = docCall.getCoords(location);
-  mapPromise.then(function(response) {
+  return docCall.getCoords(location);
+}
+
+function getCoordinatesReturnDoctors(docCall) {
+  return function(response) {
     const coordsObj = JSON.parse(response).results[0].locations[0].displayLatLng;
     const coords = `${coordsObj.lat},${coordsObj.lng}`;
     return docCall.getPromise(`doctors`, coords);
-  }, testFail())
+  }
+}
+
+function docMatch(doc) {
+  const profile = doc.profile;
+  const pic = profile.image_url;
+  const practice = doc.practices[0];
+  const location = practice.visit_address;
+  const newPatients = practice.accepts_new_patients ? "" : "not ";
+  const hasSite = practice.website ? ` or at <a href=' ${practice.website}'>their website</a>` : ``;
+  $("#output").append(`<img src='${pic}'>`);
+  $("#output").append(`<p>Dr. ${profile.first_name} ${profile.last_name}, located at ${location.street}, ${location.city} ${location.state} ${location.zip}</p>`);
+  $("#output").append(`<p>Dr. ${profile.last_name} can be reached at ${practice.phones[0].number}${hasSite}</p>`);
+  $("#output").append(`<p>Dr. ${profile.last_name} is ${newPatients}currently accepting new patients.</p>`);
+  return;
+}
+
+function searchCall(input, docCall) {
+  const mapPromise = returnCoordinatePromise(docCall);
+  mapPromise.then(getCoordinatesReturnDoctors(docCall), testFail())
   .then(function(response) {
     let searchSucceed = false;
     const data = JSON.parse(response).data;
@@ -25,17 +47,8 @@ function searchCall(input, docCall) {
       for (let i = 0; i < doc.specialties.length; i++) {
         const choice = [doc.specialties[i].description, doc.profile.last_name];
         if (choice[input].match(userIn)) {
+          docMatch(doc);
           searchSucceed = true;
-          const profile = doc.profile;
-          const pic = profile.image_url;
-          const practice = doc.practices[0];
-          const location = practice.visit_address;
-          const newPatients = practice.accepts_new_patients ? "" : "not ";
-          const hasSite = practice.website ? ` or at <a href=' ${practice.website}'>their website</a>` : ``;
-          $("#output").append(`<img src='${pic}'>`);
-          $("#output").append(`<p>Dr. ${profile.first_name} ${profile.last_name}, located at ${location.street}, ${location.city} ${location.state} ${location.zip}</p>`);
-          $("#output").append(`<p>Dr. ${profile.last_name} can be reached at ${practice.phones[0].number}${hasSite}</p>`);
-          $("#output").append(`<p>Dr. ${profile.last_name} is ${newPatients}currently accepting new patients.</p>`);
           break;
         }
       }
