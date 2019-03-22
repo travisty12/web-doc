@@ -2,6 +2,12 @@ import $ from 'jquery';
 import './sass/styles.scss';
 import { DocCall } from './web-doc.js';
 
+function testFail() {
+  return function(error) {
+    $("#output").text(`Request failed: ${error.message}`);
+  }
+}
+
 function searchCall(input, docCall) {
   $("#input").fadeOut();
   const location = $("#location").val();
@@ -10,9 +16,7 @@ function searchCall(input, docCall) {
     const coordsObj = JSON.parse(response).results[0].locations[0].displayLatLng;
     const coords = `${coordsObj.lat},${coordsObj.lng}`;
     return docCall.getPromise(`doctors`, coords);
-  }, function(error) {
-    $("#output").text(`Request failed: ${error.message}`);
-  })
+  }, testFail())
   .then(function(response) {
     let searchSucceed = false;
     const data = JSON.parse(response).data;
@@ -39,9 +43,7 @@ function searchCall(input, docCall) {
     if (!searchSucceed) {
       $("#output").append(`<p>No doctors matched your search for ${userIn}</p>`);
     }
-  }, function(error) {
-    $("#output").text(`Request failed: ${error.message}`);
-  })
+  }, testFail())
   return;
 }
 
@@ -63,11 +65,9 @@ $(document).ready(function() {
   initialCall.then(function(response) {
     const data = JSON.parse(response).data;
     for (let i = 0; i < data.length; i++) {
-      $("#examples").append(`<option maxlength="64">${data[i].description}</option>`);
+      $("#examples").append(`<option>${data[i].description}</option>`);
     }
-  }, function(error) {
-    $("#output").text(`Request failed: ${error.message}`);
-  })
+  }, testFail())
   $("#symptom").click(function() {
     btnToggle(0);
   });
