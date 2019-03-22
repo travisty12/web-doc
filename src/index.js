@@ -1,56 +1,7 @@
 import $ from 'jquery';
 import './sass/styles.scss';
 import { DocCall } from './web-doc.js';
-import { getCoordinatesReturnDoctors } from './business-logic.js';
-
-
-
-function searchCall(input, docCall) {
-  const mapPromise = returnCoordinatePromise(docCall);
-  mapPromise.then(getCoordinatesReturnDoctors(docCall), testFail())
-  .then(function(response) {
-    let searchSucceed = false;
-    const data = JSON.parse(response).data;
-    const userIn = $("#userIn").val();
-    data.forEach(function(doc) {
-      for (let i = 0; i < doc.specialties.length; i++) {
-        const choice = [doc.specialties[i].description, doc.profile.last_name];
-        if (choice[input].match(userIn)) {
-          docMatch(doc);
-          searchSucceed = true;
-          break;
-        }
-      }
-    })
-    checkNoMatch(searchSucceed, userIn);
-  }, testFail())
-  return;
-}
-
-function specialtyPopulate() {
-  return function(response) {
-    const data = JSON.parse(response).data;
-    addSpecialtyOptions(data,response)
-  }
-}
-
-function initializeBusiness() {
-  const docCall = new DocCall();
-  const initialCall = docCall.getPromise(`specialties`);
-  initialCall.then(specialtyPopulate(), testFail())
-  return docCall;
-}
-
-function generateVariables(doc) {
-  let output = []
-  output[0] = doc.profile;
-  output[1] = output[0].image_url;
-  output[2] = doc.practices[0];
-  output[3] = output[2].visit_address;
-  output[4] = output[2].accepts_new_patients ? "" : "not ";
-  output[5] = output[2].website ? ` or at <a href=' ${output[2].website}'>their website</a>` : ``;
-  return output;
-}
+import { getCoordinatesReturnDoctors, specialtyPopulate, initializeBusiness, generateVariables, initializePage, searchCall } from './business-logic.js';
 
 function docMatch(doc) {
   const output = generateVariables(doc);
@@ -91,7 +42,7 @@ function btnToggle(choice) {
   }, 400);
 }
 
-function addSpecialtyOptions(data,response) {
+export function addSpecialtyOptions(data,response) {
   for (let i = 0; i < data.length; i++) {
     $("#examples").append(`<option>${data[i].description}</option>`);
   }
@@ -103,15 +54,10 @@ function initializeUI(arr,docCall) {
       btnToggle(i);
     });
     $(`#${arr[i]}Btn`).click(function() {
-      searchCall(i, docCall);
+      const userIn = $("#userIn").val();
+      searchCall(i, docCall, userIn);
     });
   }
-}
-
-function initializePage() {
-  const docCall = initializeBusiness();
-  const arr = [`symptom`,`doctor`];
-  initializeUI(arr,docCall);
 }
 
 $(document).ready(function() {
