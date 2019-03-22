@@ -85,25 +85,26 @@ function specialtyPopulate() {
   }
 }
 
-function initializePage() {
+function initializeBusiness() {
   const docCall = new DocCall();
   const initialCall = docCall.getPromise(`specialties`);
   initialCall.then(specialtyPopulate(), testFail())
   return docCall;
 }
 
+function initializePage() {
+  const docCall = initializeBusiness();
+  const arr = [`symptom`,`doctor`];
+  for (let i = 0; i <= 1; i++) {
+    $(`#${arr[i]}`).click(function() {
+      btnToggle(i);
+    });
+    $(`#${arr[i]}Btn`).click(function() {
+      searchCall(i, docCall);
+    });
+  }
+}
+
 $(document).ready(function() {
-  const docCall = initializePage();
-  $("#symptom").click(function() {
-    btnToggle(0);
-  });
-  $("#doctor").click(function() {
-    btnToggle(1);
-  });
-  $("#symptomBtn").click(function() {
-  searchCall(0, docCall);
-  });
-  $("#doctorBtn").click(function() {
-    searchCall(1, docCall);
-  });
+  initializePage();
 });
