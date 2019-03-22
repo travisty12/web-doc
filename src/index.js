@@ -5,8 +5,9 @@ import { DocCall } from './web-doc.js';
 function searchCall(input) {
   $("#input").fadeOut();
   let searchSucceed = false;
+  const city = $("#cityName").children("option:selected").val();
   const docCall = new DocCall();
-  const promise = docCall.getPromise();
+  const promise = docCall.getPromise(city);
   promise.then(function(response) {
     const data = JSON.parse(response).data;
     const userIn = $("#userIn").val();
