@@ -35,9 +35,9 @@
 | **Program returns a list of doctors based on the inputted symptoms** | Sore throat | Dr. Example McFake, Doctor of throats. Etc... |
 | **Program returns a list of doctors based on the inputted name** | Exampleson | Dr. Leonard Exampleson, Hypothetical Doctor Extraordinaire. Etc... |
 | **Program returns all known information about the returned doctors** | Doctor | Firstname Lastname, Address Phone Website, Accepting new patients? |
-| **Program returns an error message is the promise doesn't return a 200 OK message** | Return 404 error | 404, Data not found |
+| **Program returns an error message is the promise doesn't return a 200 OK message** | Return 404 error | Data not found |
 | **Program returns a message if no doctors match your criteria** | Dr. Fancypants Scrufflestone | Your search did not match any results |
-| **Program allows the user to input their preferred city** | Portland | Here are some doctors matching your symptoms in Portland: .... |
+| **Program allows the user to input their preferred city** | Phoenix,AZ | *Doctors in Phoenix* |
 
 1. UX/UI
 * Include and modify html/Sass once specs are completed for .js files
