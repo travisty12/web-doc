@@ -19,5 +19,13 @@ $(document).ready(function() {
       $("#doctorLabel").fadeIn();
     }, 400);
   });
-  
+  $("#symptomBtn").click(function() {
+    let docCall = new DocCall();
+    let promise = docCall.getPromise();
+    promise.then(function(response) {
+    
+    }, function(error) {
+      $(".output").text(`Request failed: ${error.message}`);
+    })
+  });
 });

@@ -37,6 +37,7 @@
 | **Program returns all known information about the returned doctors** | Doctor | Firstname Lastname, Address Phone Website, Accepting new patients? |
 | **Program returns an error message is the promise doesn't return a 200 OK message** | Return 404 error | 404, Data not found |
 | **Program returns a message if no doctors match your criteria** | Dr. Fancypants Scrufflestone | Your search did not match any results |
+| **Program allows the user to input their preferred city** | Portland | Here are some doctors matching your symptoms in Portland: .... |
 
 1. UX/UI
 * Include and modify html/Sass once specs are completed for .js files
