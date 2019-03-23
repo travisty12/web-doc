@@ -3,7 +3,7 @@ import './sass/styles.scss';
 import { DocCall } from './web-doc.js';
 import { getCoordinatesReturnDoctors, specialtyPopulate, initializeBusiness, generateVariables, initializePage, searchCall } from './business-logic.js';
 
-function docMatch(doc) {
+export function docMatch(doc) {
   const output = generateVariables(doc);
   $("#output").append(`<img src='${output[1]}'>`);
   $("#output").append(`<p>Dr. ${output[0].first_name} ${output[0].last_name}, located at ${output[3].street}, ${output[3].city} ${output[3].state} ${output[3].zip}</p>`);
@@ -12,19 +12,19 @@ function docMatch(doc) {
   return;
 }
 
-function testFail() {
+export function testFail() {
   return function(error) {
     $("#output").text(`Request failed: ${error.message}`);
   }
 }
 
-function returnCoordinatePromise(docCall) {
+export function returnCoordinatePromise(docCall) {
   $("#input").fadeOut();
   const location = $("#location").val();
   return docCall.getCoords(location);
 }
 
-function checkNoMatch(searchSucceed, userIn) {
+export function checkNoMatch(searchSucceed, userIn) {
   if (!searchSucceed) {
     $("#output").append(`<p>No doctors matched your search for ${userIn}</p>`);
   }
@@ -48,7 +48,7 @@ export function addSpecialtyOptions(data,response) {
   }
 }
 
-function initializeUI(arr,docCall) {
+export function initializeUI(arr,docCall) {
   for (let i = 0; i <= 1; i++) {
     $(`#${arr[i]}`).click(function() {
       btnToggle(i);

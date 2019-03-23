@@ -1,4 +1,4 @@
-import DocCall from './web-doc.js';
+import { DocCall } from './web-doc.js';
 import { addSpecialtyOptions, testFail, initializeUI, returnCoordinatePromise, docMatch, checkNoMatch } from './index.js';
 
 export function getCoordinatesReturnDoctors(docCall) {
