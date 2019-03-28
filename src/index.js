@@ -21,7 +21,7 @@ export function testFail() {
 export function returnCoordinatePromise(docCall) {
   $("#input").fadeOut();
   const location = $("#location").val();
-  return docCall.getCoords(location);
+  return docCall.promiseSetup(0, [location,[void(0), void(0)]]);
 }
 
 export function checkNoMatch(searchSucceed, userIn) {
