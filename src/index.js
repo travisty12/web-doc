@@ -5,10 +5,7 @@ import { getCoordinatesReturnDoctors, specialtyPopulate, initializeBusiness, gen
 
 export function docMatch(doc) {
   const output = generateVariables(doc);
-  $("#output").append(`<img src='${output[1]}'>`);
-  $("#output").append(`<p>Dr. ${output[0].first_name} ${output[0].last_name}, located at ${output[3].street}, ${output[3].city} ${output[3].state} ${output[3].zip}</p>`);
-  $("#output").append(`<p>Dr. ${output[0].last_name} can be reached at ${output[2].phones[0].number}${output[5]}</p>`);
-  $("#output").append(`<p>Dr. ${output[0].last_name} is ${output[4]}currently accepting new patients.</p>`);
+  $("#output").append(`<img src='${output[1]}'><p>Dr. ${output[0].first_name} ${output[0].last_name}, located at ${output[3].street}, ${output[3].city} ${output[3].state} ${output[3].zip}</p><p>Dr. ${output[0].last_name} can be reached at ${output[2].phones[0].number}${output[5]}</p><p>Dr. ${output[0].last_name} is ${output[4]}currently accepting new patients.</p>`);
   return;
 }
 
